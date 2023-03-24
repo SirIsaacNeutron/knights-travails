@@ -10,7 +10,7 @@ export class Gameboard {
         }
     }
 
-    knightMoves = (knightRow, knightCol) => {
+    allKnightMoves = (knightRow, knightCol) => {
         const leftTwo = knightCol - 2
         const leftOne = knightCol - 1
 
