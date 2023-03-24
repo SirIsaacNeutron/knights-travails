@@ -8,4 +8,6 @@ test("knight moves", () => {
     expect(gameboard.knightMoves(3, 3).length).toEqual(8)
 
     expect(gameboard.knightMoves(4, 1).length).toEqual(6)
+
+    expect(gameboard.knightMoves(6, 1).length).toEqual(4)
 })

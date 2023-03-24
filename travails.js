@@ -29,7 +29,7 @@ export class Gameboard {
             if (upOne >= 0) {
                 moves.push([upOne, leftTwo])
             }
-            if (downOne <= 8) {
+            if (downOne < 8) {
                 moves.push([downOne, leftTwo])
             }
         }
@@ -38,25 +38,25 @@ export class Gameboard {
             if (upTwo >= 0) {
                 moves.push([upTwo, leftOne])
             }
-            if (downTwo <= 8) {
+            if (downTwo < 8) {
                 moves.push([downTwo, leftOne])
             }
         }
 
-        if (rightTwo <= 8) {
+        if (rightTwo < 8) {
             if (upOne >= 0) {
                 moves.push([upOne, rightTwo])
             }
-            if (downOne <= 8) {
+            if (downOne < 8) {
                 moves.push([downOne, rightTwo])
             }
         }
 
-        if (rightOne <= 8) {
+        if (rightOne < 8) {
             if (upTwo >= 0) {
                 moves.push([upTwo, rightOne])
             }
-            if (downTwo <= 8) {
+            if (downTwo < 8) {
                 moves.push([downTwo, rightOne])
             }
         }
