@@ -75,6 +75,7 @@ class Gameboard {
 
 const gameboard = new Gameboard()
 
+// https://en.wikipedia.org/wiki/Breadth-first_search
 export default function knightMoves([originRow, originCol], [endRow, endCol]) {
     gameboard.reset()
     gameboard.setExplored(originRow, originCol)
