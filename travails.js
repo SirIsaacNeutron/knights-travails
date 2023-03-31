@@ -10,6 +10,10 @@ export class Square {
         this.parent = parent
     }
 
+    getParent = () => {
+        return this.parent
+    }
+
     allKnightMoves = () => {
         const moves = []
         Gameboard.knightOffsets.forEach(offset => {
@@ -23,9 +27,15 @@ export class Square {
 
         return moves
     }
+
+    allKnightSquares = () => {
+        return this.allKnightMoves().map(coord => {
+            return new Square(coord[0], coord[1])
+        })
+    }
 }
 
-export class Gameboard {
+class Gameboard {
     static knightOffsets = [
         [1, 2], [1, -2],
         [2, 1], [2, -1],
@@ -33,7 +43,7 @@ export class Gameboard {
         [-2, 1], [-2, -1]
     ]
     constructor() {
-        this.reset()
+    
     }
 
     allKnightSquares = (knightRow, knightCol) => {
@@ -62,7 +72,7 @@ export class Gameboard {
         this.squares = {}
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
-                this.squares[`${i},${j}`] = this.allKnightSquares(i, j)
+                this.squares[`${i},${j}`] = new Square(i, j)
             }
         }
 
@@ -79,28 +89,42 @@ export class Gameboard {
 
 const gameboard = new Gameboard()
 
-// TODO
-export function knightMoves([originRow, originCol], [endRow, endCol]) {
+export default function knightMoves([originRow, originCol], [endRow, endCol]) {
     gameboard.reset()
     gameboard.setExplored(originRow, originCol)
 
     const queue = [gameboard.squares[`${originRow},${originCol}`]]
 
     while (queue.length !== 0) {
-        const square = queue.unshift()
+        const square = queue.shift()
 
         if (square.row === endRow && square.col === endCol) {
-            return square
+            // console.log(gameboard.squares[`${endRow},${endCol}`])
+            break
         }
 
-        const allEdges = gameboard.squares[`${square.row},${square.col}`]
+        const allEdges = square.allKnightSquares()
         allEdges.forEach(edgeSquare => {
             if (!gameboard.isExplored(edgeSquare.row, edgeSquare.col)) {
                 gameboard.setExplored(edgeSquare.row, edgeSquare.col)
                 
-                gameboard.squares[`${possibleRow},${possibleCol}`].setParent(square)
-                queue.push(gameboard.graph[`${possibleRow},${possibleCol}`])
+                gameboard.squares[`${edgeSquare.row},${edgeSquare.col}`].setParent(gameboard.squares[`${square.row},${square.col}`])
+                // console.log(`${edgeSquare.row},${edgeSquare.col}`)
+                queue.push(gameboard.squares[`${edgeSquare.row},${edgeSquare.col}`])
             }
         })
     }
+
+    const path = [gameboard.squares[`${endRow},${endCol}`]]
+    while (true) {
+        const nextSquare = path.at(-1).getParent()
+
+        if (nextSquare === null || nextSquare.row === endRow && nextSquare.col === endCol) {
+            break
+        }
+
+        path.push(nextSquare)
+    }
+
+    return path.reverse().map(square => [square.row, square.col])
 }
