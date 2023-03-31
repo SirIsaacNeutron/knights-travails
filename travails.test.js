@@ -16,4 +16,6 @@ test("knight travails", () => {
     expect(knightMoves([3, 3], [0, 0])).toEqual([[3, 3], [2, 1], [0, 0]])
 
     expect(knightMoves([3, 3], [4, 3])).toEqual([[3, 3], [4, 5], [6, 4], [4, 3]])
+
+    expect(knightMoves([0, 0], [0, 1])).toEqual([[0, 0], [1, 2], [2, 0], [0, 1]])
 })

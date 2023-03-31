@@ -46,20 +46,6 @@ class Gameboard {
     
     }
 
-    allKnightSquares = (knightRow, knightCol) => {
-        const squares = []
-        Gameboard.knightOffsets.forEach(offset => {
-            const [rowOffset, colOffset] = offset
-            const [newRow, newCol] = [knightRow + rowOffset, knightCol + colOffset]
-
-            if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
-                squares.push(new Square(newRow, newCol))
-            }
-        })
-
-        return squares
-    }
-
     setExplored = (row, col) => {
         this.exploredSquares[row][col] = true
     }
