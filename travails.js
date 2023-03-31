@@ -6,21 +6,28 @@ export class Gameboard {
         [-2, 1], [-2, -1]
     ]
     constructor() {
-        this.board = []
+        // this.board = []
+        // for (let i = 0; i < 8; ++i) {
+        //     const row = []
+        //     for (let j = 0; j < 8; ++j) {
+        //         row.push(null)
+        //     }
+        //     this.board.push(row)
+        // }
+
+        this.graph = {}
         for (let i = 0; i < 8; ++i) {
-            const row = []
             for (let j = 0; j < 8; ++j) {
-                row.push(null)
+                this.graph[`${i},${j}`] = this.allKnightMoves(i, j)
             }
-            this.board.push(row)
         }
     }
 
     allKnightMoves = (knightRow, knightCol) => {
         const moves = []
         Gameboard.knightOffsets.forEach(offset => {
-            const [xOffset, yOffset] = offset
-            const [newRow, newCol] = [knightRow + xOffset, knightCol + yOffset]
+            const [rowOffset, colOffset] = offset
+            const [newRow, newCol] = [knightRow + rowOffset, knightCol + colOffset]
 
             if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
                 moves.push([newRow, newCol])
@@ -29,4 +36,8 @@ export class Gameboard {
 
         return moves
     }
+}
+
+export function knightMoves([originRow, originCol], [endRow, endCol]) {
+    
 }
